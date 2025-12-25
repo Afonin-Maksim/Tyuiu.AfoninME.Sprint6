@@ -12,17 +12,15 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
         public int[,] GetMatrix(string path)
         {
             if (!File.Exists(path))
-                throw new FileNotFoundException("Файл не найден!", path);
+                throw new FileNotFoundException("Файл не найден", path);
 
             string[] lines = File.ReadAllLines(path)
                                  .Where(l => !string.IsNullOrWhiteSpace(l))
                                  .ToArray();
 
-            // Находим максимальное количество элементов в строках,
-            // чтобы выровнять "кривые" строки и избежать сдвигов
-            int cols = lines.Max(l => l
-                .Split(new char[] { ' ', '\t', ';', ',' },
-                     StringSplitOptions.RemoveEmptyEntries).Length);
+            
+            int cols = lines.Max(l => l.Split(new char[] { ' ', '\t', ';', ',' },
+                                              StringSplitOptions.RemoveEmptyEntries).Length);
             int rows = lines.Length;
 
             int[,] matrix = new int[rows, cols];
@@ -35,31 +33,31 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
 
                 for (int j = 0; j < cols; j++)
                 {
-                    int val = 0;
-                    if (j < parts.Length)
-                        int.TryParse(parts[j], NumberStyles.Integer, CultureInfo.InvariantCulture, out val);
-                    matrix[i, j] = val;
+                    if (j < parts.Length &&
+                        int.TryParse(parts[j], NumberStyles.Integer,
+                                     CultureInfo.InvariantCulture, out int value))
+                        matrix[i, j] = value;
+                    else
+                        matrix[i, j] = 0;
                 }
             }
 
-            return matrix; // Возвращаем исходную, без изменений
+            return matrix;
         }
 
-        // --- Старые имена для совместимости тестов ---
-        public int[,] LoadMatrix(string path) => GetMatrix(path);
-
+        
         public int[,] ProcessMatrix(int[,] source)
         {
             int rows = source.GetLength(0);
             int cols = source.GetLength(1);
             int[,] result = new int[rows, cols];
 
-            // копируем исходную матрицу
+            
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < cols; j++)
                     result[i, j] = source[i, j];
 
-            // обработка: замена во втором столбце (индекс 1)
+            
             if (cols > 1)
             {
                 for (int i = 0; i < rows; i++)

@@ -20,35 +20,27 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             textBoxCondition_AME.Text =
                 "УСЛОВИЕ:\r\n" +
                 "Дан файл InPutFileTask7V26.csv, в котором хранится матрица целых чисел.\r\n" +
-                "Необходимо заменить во втором столбце положительные значения больше 5 на 222.\r\n" +
+                "Во втором столбце заменить положительные значения больше 5 на 222.\r\n" +
                 "Исходная матрица отображается слева, результат обработки — справа.";
         }
 
-        //------------------------------------------------
-        // КНОПКА 'Открыть файл' — просто считывает и показывает оригинал
-        //------------------------------------------------
         private void buttonOpenFile_AME_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openDialog = new OpenFileDialog())
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                openDialog.Filter = "CSV файлы|*.csv|Все файлы|*.*";
-                if (openDialog.ShowDialog() == DialogResult.OK)
+                dlg.Filter = "CSV файлы|*.csv|Все файлы|*.*";
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    matrixOriginal = ds.GetMatrix(openDialog.FileName);
-                    matrixProcessed = null; // сброс результата
+                    matrixOriginal = ds.GetMatrix(dlg.FileName);
+                    matrixProcessed = null;
 
                     ShowMatrix_AME(matrixOriginal, dataGridViewIn_AME);
-
-                    // очищаем таблицу результата
                     dataGridViewOut_AME.Rows.Clear();
                     dataGridViewOut_AME.Columns.Clear();
                 }
             }
         }
 
-        //------------------------------------------------
-        // КНОПКА 'Обработать' — создаёт копию и заменяет >5 во втором столбце
-        //------------------------------------------------
         private void buttonProcess_AME_Click(object sender, EventArgs e)
         {
             if (matrixOriginal == null)
@@ -58,13 +50,9 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             }
 
             matrixProcessed = ds.ProcessMatrix(matrixOriginal);
-
             ShowMatrix_AME(matrixProcessed, dataGridViewOut_AME);
         }
 
-        //------------------------------------------------
-        // КНОПКА 'Сохранить результат'
-        //------------------------------------------------
         private void buttonSaveFile_AME_Click(object sender, EventArgs e)
         {
             if (matrixProcessed == null)
@@ -73,10 +61,10 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 return;
             }
 
-            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            using (SaveFileDialog dlg = new SaveFileDialog())
             {
-                saveDialog.Filter = "CSV файлы|*.csv|Все файлы|*.*";
-                if (saveDialog.ShowDialog() == DialogResult.OK)
+                dlg.Filter = "CSV файлы|*.csv|Все файлы|*.*";
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     int rows = matrixProcessed.GetLength(0);
                     int cols = matrixProcessed.GetLength(1);
@@ -90,29 +78,22 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                         lines[i] = string.Join(";", values);
                     }
 
-                    File.WriteAllLines(saveDialog.FileName, lines);
-                    MessageBox.Show("Файл успешно сохранён!");
+                    File.WriteAllLines(dlg.FileName, lines);
+                    MessageBox.Show("Результат успешно сохранён!");
                 }
             }
         }
 
-        //------------------------------------------------
-        // КНОПКА 'О программе'
-        //------------------------------------------------
         private void buttonAbout_AME_Click(object sender, EventArgs e)
         {
             FormAbout about = new FormAbout();
             about.ShowDialog();
         }
 
-        //------------------------------------------------
-        // Метод вывода матрицы в DataGridView
-        //------------------------------------------------
         private void ShowMatrix_AME(int[,] matrix, DataGridView grid)
         {
             grid.Rows.Clear();
             grid.Columns.Clear();
-
             int rows = matrix.GetLength(0);
             int cols = matrix.GetLength(1);
 
@@ -121,47 +102,13 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
 
             for (int r = 0; r < rows; r++)
             {
-                string[] row = new string[cols];
+                string[] rowData = new string[cols];
                 for (int c = 0; c < cols; c++)
-                    row[c] = matrix[r, c].ToString();
-                grid.Rows.Add(row);
+                    rowData[c] = matrix[r, c].ToString();
+                grid.Rows.Add(rowData);
             }
 
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        }
-
-        //------------------------------------------------
-        // Адаптация при изменении размеров окна
-        //------------------------------------------------
-        private void FormMain_Resize(object sender, EventArgs e)
-        {
-            int margin = 20;
-            int textHeight = (int)(this.ClientSize.Height * 0.15);
-            int space = 20;
-            int buttonHeight = 40;
-
-            textBoxCondition_AME.SetBounds(margin, margin,
-                this.ClientSize.Width - 2 * margin, textHeight);
-
-            int gridTop = margin + textBoxCondition_AME.Height + margin;
-            int gridHeight = this.ClientSize.Height - gridTop - buttonHeight - (3 * margin);
-            int gridWidth = (this.ClientSize.Width - (2 * margin) - space) / 2;
-
-            dataGridViewIn_AME.SetBounds(margin, gridTop, gridWidth, gridHeight);
-            dataGridViewOut_AME.SetBounds(margin + gridWidth + space, gridTop, gridWidth, gridHeight);
-
-            int totalButtonsWidth = buttonOpenFile_AME.Width + buttonProcess_AME.Width +
-                                    buttonSaveFile_AME.Width + buttonAbout_AME.Width + 3 * 10;
-            int leftOffset = (this.ClientSize.Width - totalButtonsWidth) / 2;
-            int top = this.ClientSize.Height - buttonHeight - margin;
-
-            buttonOpenFile_AME.Top = buttonProcess_AME.Top =
-                buttonSaveFile_AME.Top = buttonAbout_AME.Top = top;
-
-            buttonOpenFile_AME.Left = leftOffset;
-            buttonProcess_AME.Left = buttonOpenFile_AME.Right + 10;
-            buttonSaveFile_AME.Left = buttonProcess_AME.Right + 10;
-            buttonAbout_AME.Left = buttonSaveFile_AME.Right + 10;
         }
     }
 }
