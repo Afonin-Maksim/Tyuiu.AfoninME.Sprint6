@@ -24,7 +24,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 "Исходные данные вывести слева, результат обработки — справа.";
         }
 
-        // === Открыть файл ===
         private void buttonOpenFile_AME_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openDialog = new OpenFileDialog())
@@ -35,17 +34,14 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                     matrixOriginal = ds.GetMatrix(openDialog.FileName);
                     matrixProcessed = null;
 
-                    // показываем исходные данные слева
                     ShowMatrix_AME(matrixOriginal, dataGridViewIn_AME);
 
-                    // очищаем таблицу справа
                     dataGridViewOut_AME.Rows.Clear();
                     dataGridViewOut_AME.Columns.Clear();
                 }
             }
         }
 
-        // === Обработать (замена во втором столбце >5 -> 222) ===
         private void buttonProcess_AME_Click(object sender, EventArgs e)
         {
             if (matrixOriginal == null)
@@ -58,22 +54,18 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             int cols = matrixOriginal.GetLength(1);
             matrixProcessed = new int[rows, cols];
 
-            // копируем исходную матрицу в новую
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
                     matrixProcessed[i, j] = matrixOriginal[i, j];
 
-                // корректируем второй столбец
                 if (cols > 1 && matrixProcessed[i, 1] > 5)
                     matrixProcessed[i, 1] = 222;
             }
 
-            // показываем результат справа
             ShowMatrix_AME(matrixProcessed, dataGridViewOut_AME);
         }
 
-        // === Сохранение результата ===
         private void buttonSaveFile_AME_Click(object sender, EventArgs e)
         {
             if (matrixProcessed == null)
@@ -105,14 +97,12 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             }
         }
 
-        // === О программе ===
         private void buttonAbout_AME_Click(object sender, EventArgs e)
         {
             FormAbout about = new FormAbout();
             about.ShowDialog();
         }
 
-        // === Метод показа матрицы ===
         private void ShowMatrix_AME(int[,] matrix, DataGridView grid)
         {
             grid.Rows.Clear();
@@ -135,7 +125,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        // === Адаптивное расположение ===
         private void FormMain_Resize(object sender, EventArgs e)
         {
             int margin = 20;

@@ -2,15 +2,11 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using tyuiu.cources.programming.interfaces.Sprint6;
 
 namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
 {
-    public class DataService: ISprint6Task7V26
-    {
-        /// <summary>
-        /// Считывает матрицу целых чисел из CSV-файла и возвращает исходные дан
-        /// </summary>
+    public class DataService
+    {       
         public int[,] GetMatrix(string path)
         {
             if (!File.Exists(path))
@@ -20,9 +16,9 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
                                  .Where(l => !string.IsNullOrWhiteSpace(l))
                                  .ToArray();
 
+            int rows = lines.Length;
             int cols = lines[0].Split(new char[] { ';', ',', ' ', '\t' },
                                       StringSplitOptions.RemoveEmptyEntries).Length;
-            int rows = lines.Length;
 
             int[,] matrix = new int[rows, cols];
 
@@ -42,6 +38,27 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
             }
 
             return matrix;
+        }
+
+        public int[,] LoadMatrix(string path)
+        {
+            return GetMatrix(path);
+        }
+
+        public int[,] ProcessMatrix(int[,] source)
+        {
+            int rows = source.GetLength(0);
+            int cols = source.GetLength(1);
+            int[,] result = new int[rows, cols];
+            Array.Copy(source, result, source.Length);
+
+            for (int i = 0; i < rows; i++)
+            {
+                if (cols > 1 && result[i, 1] > 5)
+                    result[i, 1] = 222;
+            }
+
+            return result;
         }
     }
 }
