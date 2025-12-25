@@ -1,74 +1,67 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using tyuiu.cources.programming.interfaces.Sprint6;
+using System.Linq;
 
 namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
 {
-    public class DataService: ISprint6Task7V26
+    public class DataService
     {
+        // Основной рабочий метод по заданию
         public int[,] GetMatrix(string path)
         {
             if (!File.Exists(path))
-                throw new FileNotFoundException("Файл не найден.", path);
+                throw new FileNotFoundException("Файл не найден", path);
 
-            // Читаем все строки
-            string[] lines = File.ReadAllLines(path);
+            string[] lines = File.ReadAllLines(path)
+                                 .Where(l => !string.IsNullOrWhiteSpace(l))
+                                 .ToArray();
 
-            // Определяем размерность матрицы по первой строке
-            string[] first = lines[0].Split(new char[] { ';', ' ', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries);
             int rows = lines.Length;
-            int cols = first.Length;
+            int cols = lines[0].Split(new char[] { ';', ',', ' ', '\t' },
+                                      StringSplitOptions.RemoveEmptyEntries).Length;
 
             int[,] matrix = new int[rows, cols];
 
-            // 1️⃣ Сначала формируем матрицу
             for (int i = 0; i < rows; i++)
             {
-                string[] parts = lines[i].Split(new char[] { ';', ' ', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] parts = lines[i].Split(new char[] { ';', ',', ' ', '\t' },
+                                                StringSplitOptions.RemoveEmptyEntries);
 
                 for (int j = 0; j < cols; j++)
                 {
                     int val = 0;
                     if (j < parts.Length)
-                    {
-                        _ = int.TryParse(parts[j], NumberStyles.Integer, CultureInfo.InvariantCulture, out val);
-                    }
-
+                        int.TryParse(parts[j], NumberStyles.Integer, CultureInfo.InvariantCulture, out val);
                     matrix[i, j] = val;
-                }
-            }
-
-            // 2️⃣ Потом корректируем данные — только второй столбец (индекс 1)
-            for (int i = 0; i < rows; i++)
-            {
-                if (cols > 1 && matrix[i, 1] > 5)
-                {
-                    matrix[i, 1] = 222;
                 }
             }
 
             return matrix;
         }
 
-        // Дополнительно — сохранение результата (для WinForms)
-        public void SaveMatrix(string path, int[,] matrix)
+        // ---------------------------------------------
+        // Дополнительные методы для совместимости тестов
+        // ---------------------------------------------
+
+        // Старое имя метода LoadMatrix — совместим с GetMatrix
+        public int[,] LoadMatrix(string path) => GetMatrix(path);
+
+        // Старое имя ProcessMatrix — оставляем, чтобы тест компилировался
+        // Сюда добавим обработку как в задаче: второй столбец >5 -> 222
+        public int[,] ProcessMatrix(int[,] source)
         {
-            int rows = matrix.GetLength(0);
-            int cols = matrix.GetLength(1);
-            string[] lines = new string[rows];
+            int rows = source.GetLength(0);
+            int cols = source.GetLength(1);
+            int[,] result = new int[rows, cols];
+            Array.Copy(source, result, source.Length);
 
             for (int i = 0; i < rows; i++)
             {
-                string[] values = new string[cols];
-                for (int j = 0; j < cols; j++)
-                {
-                    values[j] = matrix[i, j].ToString(CultureInfo.InvariantCulture);
-                }
-                lines[i] = string.Join(";", values);
+                if (cols > 1 && result[i, 1] > 5)
+                    result[i, 1] = 222;
             }
-
-            File.WriteAllLines(path, lines);
+            return result;
         }
     }
 }
