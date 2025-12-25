@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using tyuiu.cources.programming.interfaces.Sprint6;
 
 namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
 {
-    public class DataService
+    public class DataService: ISprint6Task7V26
     {
         public int[,] GetMatrix(string path)
         {
