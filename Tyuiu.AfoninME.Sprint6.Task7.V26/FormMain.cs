@@ -7,24 +7,23 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
 {
     public partial class FormMain : Form
     {
-        DataService ds = new DataService();
-        int[,]? matrixOriginal;
-        int[,]? matrixProcessed;
+        private readonly DataService ds = new DataService();
+        private int[,]? matrixOriginal;
+        private int[,]? matrixProcessed;
 
         public FormMain()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Спринт #6 | Task 7 | Вариант 26 | Афонин М.Е.";
-
             textBoxCondition_AME.Text =
-                "УСЛОВИЕ:\r\n" +
+                "УСЛОВИЕ ЗАДАНИЯ:\r\n" +
                 "Дан файл InPutFileTask7V26.csv, в котором хранится матрица целых чисел.\r\n" +
                 "Во втором столбце заменить положительные значения больше 5 на 222.\r\n" +
-                "Исходная матрица отображается слева, результат обработки — справа.";
+                "Исходная матрица отображается слева, обработанный результат — справа.\r\n" +
+                "Результат сохранить в файл OutPutFileTask7V26.csv.";
         }
-
-        private void buttonOpenFile_AME_Click(object sender, EventArgs e)
+        private void buttonOpenFile_AME_Click(object? sender, EventArgs e)
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
@@ -33,31 +32,28 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 {
                     matrixOriginal = ds.GetMatrix(dlg.FileName);
                     matrixProcessed = null;
-
                     ShowMatrix_AME(matrixOriginal, dataGridViewIn_AME);
                     dataGridViewOut_AME.Rows.Clear();
                     dataGridViewOut_AME.Columns.Clear();
+                    this.Text = $"Спринт #6 | Task 7 | Вариант 26 | Афонин М.Е. | Файл: {Path.GetFileName(dlg.FileName)}";
                 }
             }
         }
-
-        private void buttonProcess_AME_Click(object sender, EventArgs e)
+        private void buttonProcess_AME_Click(object? sender, EventArgs e)
         {
             if (matrixOriginal == null)
             {
-                MessageBox.Show("Сначала загрузите файл!");
+                MessageBox.Show("Сначала загрузите файл!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             matrixProcessed = ds.ProcessMatrix(matrixOriginal);
             ShowMatrix_AME(matrixProcessed, dataGridViewOut_AME);
         }
-
-        private void buttonSaveFile_AME_Click(object sender, EventArgs e)
+        private void buttonSaveFile_AME_Click(object? sender, EventArgs e)
         {
             if (matrixProcessed == null)
             {
-                MessageBox.Show("Нет данных для сохранения!");
+                MessageBox.Show("Нет данных для сохранения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -72,24 +68,23 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
 
                     for (int i = 0; i < rows; i++)
                     {
-                        string[] values = new string[cols];
+                        string[] vals = new string[cols];
                         for (int j = 0; j < cols; j++)
-                            values[j] = matrixProcessed[i, j].ToString();
-                        lines[i] = string.Join(";", values);
+                            vals[j] = matrixProcessed[i, j].ToString();
+                        lines[i] = string.Join(";", vals);
                     }
 
                     File.WriteAllLines(dlg.FileName, lines);
-                    MessageBox.Show("Результат успешно сохранён!");
+                    MessageBox.Show($"Результат успешно сохранён:\n{dlg.FileName}",
+                        "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
-
-        private void buttonAbout_AME_Click(object sender, EventArgs e)
+        private void buttonAbout_AME_Click(object? sender, EventArgs e)
         {
             FormAbout about = new FormAbout();
             about.ShowDialog();
         }
-
         private void ShowMatrix_AME(int[,] matrix, DataGridView grid)
         {
             grid.Rows.Clear();
@@ -102,13 +97,37 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
 
             for (int r = 0; r < rows; r++)
             {
-                string[] rowData = new string[cols];
+                string[] rowVals = new string[cols];
                 for (int c = 0; c < cols; c++)
-                    rowData[c] = matrix[r, c].ToString();
-                grid.Rows.Add(rowData);
+                    rowVals[c] = matrix[r, c].ToString();
+                grid.Rows.Add(rowVals);
             }
 
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+        private void FormMain_Resize(object? sender, EventArgs e)
+        {
+            int margin = 20;
+            int textHeight = (int)(this.ClientSize.Height * 0.15);
+            int space = 20;
+            int buttonHeight = 40;
+            textBoxCondition_AME.SetBounds(margin, margin,
+                this.ClientSize.Width - 2 * margin, textHeight);
+            int gridTop = margin + textBoxCondition_AME.Height + margin;
+            int gridHeight = this.ClientSize.Height - gridTop - buttonHeight - (4 * margin);
+            int gridWidth = (this.ClientSize.Width - (2 * margin) - space) / 2;
+            dataGridViewIn_AME.SetBounds(margin, gridTop, gridWidth, gridHeight);
+            dataGridViewOut_AME.SetBounds(margin + gridWidth + space, gridTop, gridWidth, gridHeight);
+            int totalWidth = buttonOpenFile_AME.Width + buttonProcess_AME.Width +
+                             buttonSaveFile_AME.Width + buttonAbout_AME.Width + (3 * 10);
+            int left = (this.ClientSize.Width - totalWidth) / 2;
+            int top = this.ClientSize.Height - buttonHeight - margin;
+            buttonOpenFile_AME.Top = buttonProcess_AME.Top =
+                buttonSaveFile_AME.Top = buttonAbout_AME.Top = top;
+            buttonOpenFile_AME.Left = left;
+            buttonProcess_AME.Left = buttonOpenFile_AME.Right + 10;
+            buttonSaveFile_AME.Left = buttonProcess_AME.Right + 10;
+            buttonAbout_AME.Left = buttonSaveFile_AME.Right + 10;
         }
     }
 }

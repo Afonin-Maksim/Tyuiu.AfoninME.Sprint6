@@ -12,52 +12,37 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
         public int[,] GetMatrix(string path)
         {
             if (!File.Exists(path))
-                throw new FileNotFoundException("Файл не найден", path);
-
+                throw new FileNotFoundException("Файл не найден.", path);
             string[] lines = File.ReadAllLines(path)
                                  .Where(l => !string.IsNullOrWhiteSpace(l))
                                  .ToArray();
-
-            
-            int cols = lines.Max(l => l.Split(new char[] { ' ', '\t', ';', ',' },
-                                              StringSplitOptions.RemoveEmptyEntries).Length);
+            int cols = lines.Max(l => l
+                .Split(new char[] { ' ', '\t', ';', ',' },
+                       StringSplitOptions.RemoveEmptyEntries).Length);
             int rows = lines.Length;
-
             int[,] matrix = new int[rows, cols];
-
             for (int i = 0; i < rows; i++)
             {
-                string[] parts = lines[i]
-                    .Split(new char[] { ' ', '\t', ';', ',' },
-                           StringSplitOptions.RemoveEmptyEntries);
-
+                string[] parts = lines[i].Split(new char[] { ' ', '\t', ';', ',' },
+                                                StringSplitOptions.RemoveEmptyEntries);
                 for (int j = 0; j < cols; j++)
                 {
-                    if (j < parts.Length &&
-                        int.TryParse(parts[j], NumberStyles.Integer,
-                                     CultureInfo.InvariantCulture, out int value))
-                        matrix[i, j] = value;
-                    else
-                        matrix[i, j] = 0;
+                    int value = 0;
+                    if (j < parts.Length)
+                        int.TryParse(parts[j], NumberStyles.Integer, CultureInfo.InvariantCulture, out value);
+                    matrix[i, j] = value;
                 }
             }
-
             return matrix;
         }
-
-        
         public int[,] ProcessMatrix(int[,] source)
         {
             int rows = source.GetLength(0);
             int cols = source.GetLength(1);
             int[,] result = new int[rows, cols];
-
-            
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < cols; j++)
                     result[i, j] = source[i, j];
-
-            
             if (cols > 1)
             {
                 for (int i = 0; i < rows; i++)
@@ -66,8 +51,8 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
                         result[i, 1] = 222;
                 }
             }
-
             return result;
         }
+        public int[,] LoadMatrix(string path) => GetMatrix(path);
     }
 }
