@@ -9,7 +9,7 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
     public class DataService: ISprint6Task7V26
     {
         /// <summary>
-        /// Считывает матрицу целых чисел из CSV-файла и возвращает исходные данные без изменений.
+        /// Считывает матрицу целых чисел из CSV-файла и возвращает исходные дан
         /// </summary>
         public int[,] GetMatrix(string path)
         {
