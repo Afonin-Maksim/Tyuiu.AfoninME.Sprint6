@@ -24,9 +24,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIn_AME)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOut_AME)).BeginInit();
             this.SuspendLayout();
-            // 
-            // textBoxCondition_AME
-            // 
+            
             this.textBoxCondition_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.textBoxCondition_AME.Location = new System.Drawing.Point(12, 12);
             this.textBoxCondition_AME.Multiline = true;
@@ -35,9 +33,7 @@
             this.textBoxCondition_AME.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxCondition_AME.Size = new System.Drawing.Size(820, 80);
             this.textBoxCondition_AME.TabIndex = 10;
-            // 
-            // dataGridViewIn_AME
-            // 
+            
             this.dataGridViewIn_AME.AllowUserToAddRows = false;
             this.dataGridViewIn_AME.AllowUserToDeleteRows = false;
             this.dataGridViewIn_AME.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -45,9 +41,7 @@
             this.dataGridViewIn_AME.Name = "dataGridViewIn_AME";
             this.dataGridViewIn_AME.ReadOnly = true;
             this.dataGridViewIn_AME.Size = new System.Drawing.Size(380, 200);
-            // 
-            // dataGridViewOut_AME
-            // 
+            
             this.dataGridViewOut_AME.AllowUserToAddRows = false;
             this.dataGridViewOut_AME.AllowUserToDeleteRows = false;
             this.dataGridViewOut_AME.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -55,9 +49,7 @@
             this.dataGridViewOut_AME.Name = "dataGridViewOut_AME";
             this.dataGridViewOut_AME.ReadOnly = true;
             this.dataGridViewOut_AME.Size = new System.Drawing.Size(380, 200);
-            // 
-            // buttonOpenFile_AME
-            // 
+            
             this.buttonOpenFile_AME.BackColor = System.Drawing.Color.LightSteelBlue;
             this.buttonOpenFile_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.buttonOpenFile_AME.Location = new System.Drawing.Point(12, 330);
@@ -66,9 +58,7 @@
             this.buttonOpenFile_AME.Text = "Открыть файл";
             this.buttonOpenFile_AME.UseVisualStyleBackColor = false;
             this.buttonOpenFile_AME.Click += new System.EventHandler(this.buttonOpenFile_AME_Click);
-            // 
-            // buttonProcess_AME
-            // 
+            
             this.buttonProcess_AME.BackColor = System.Drawing.Color.LightSteelBlue;
             this.buttonProcess_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.buttonProcess_AME.Location = new System.Drawing.Point(200, 330);
@@ -77,9 +67,7 @@
             this.buttonProcess_AME.Text = "Обработать";
             this.buttonProcess_AME.UseVisualStyleBackColor = false;
             this.buttonProcess_AME.Click += new System.EventHandler(this.buttonProcess_AME_Click);
-            // 
-            // buttonSaveFile_AME
-            // 
+            
             this.buttonSaveFile_AME.BackColor = System.Drawing.Color.LightSteelBlue;
             this.buttonSaveFile_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.buttonSaveFile_AME.Location = new System.Drawing.Point(390, 330);
@@ -88,9 +76,7 @@
             this.buttonSaveFile_AME.Text = "Сохранить";
             this.buttonSaveFile_AME.UseVisualStyleBackColor = false;
             this.buttonSaveFile_AME.Click += new System.EventHandler(this.buttonSaveFile_AME_Click);
-            // 
-            // buttonAbout_AME
-            // 
+            
             this.buttonAbout_AME.BackColor = System.Drawing.Color.LightSteelBlue;
             this.buttonAbout_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.buttonAbout_AME.Location = new System.Drawing.Point(580, 330);
@@ -99,9 +85,7 @@
             this.buttonAbout_AME.Text = "О программе";
             this.buttonAbout_AME.UseVisualStyleBackColor = false;
             this.buttonAbout_AME.Click += new System.EventHandler(this.buttonAbout_AME_Click);
-            // 
-            // FormMain
-            // 
+            
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.ClientSize = new System.Drawing.Size(850, 400);
             this.Controls.Add(this.textBoxCondition_AME);

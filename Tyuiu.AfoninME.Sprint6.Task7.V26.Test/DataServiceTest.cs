@@ -11,7 +11,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Test
         public void ProcessMatrix_ShouldReplacePositiveMoreThan5_InSecondColumnOnly()
         {
             DataService ds = new DataService();
-
             string path = Path.GetTempFileName();
             File.WriteAllLines(path, new[]
             {
@@ -19,16 +18,11 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Test
                 "-5 7 8",
                 "1 -3 4"
             });
-
             int[,] matrix = ds.LoadMatrix(path);
-            int[,] result = ds.ProcessMatrix(matrix);
-
-            // Проверяем замену
+            int[,] result = ds.ProcessMatrix(matrix);      
             Assert.AreEqual(222, result[0, 1]);
-            Assert.AreEqual(222, result[1, 1]);    // 7 -> 222
-            Assert.AreEqual(-3, result[2, 1]);     // отрицательные не меняем
-
-            // Проверяем, что исходная матрица осталась неизменной
+            Assert.AreEqual(222, result[1, 1]);    
+            Assert.AreEqual(-3, result[2, 1]);                 
             Assert.AreEqual(10, matrix[0, 1]);
         }
     }
