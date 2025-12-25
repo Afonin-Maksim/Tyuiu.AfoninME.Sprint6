@@ -21,9 +21,12 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 "УСЛОВИЕ:\r\n" +
                 "Дан файл InPutFileTask7V26.csv, в котором хранится матрица целых чисел.\r\n" +
                 "Необходимо заменить во втором столбце положительные значения больше 5 на 222.\r\n" +
-                "Исходные данные вывести слева, результат обработки — справа.";
+                "Исходная матрица отображается слева, результат обработки — справа.";
         }
 
+        //------------------------------------------------
+        // КНОПКА 'Открыть файл' — просто считывает и показывает оригинал
+        //------------------------------------------------
         private void buttonOpenFile_AME_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openDialog = new OpenFileDialog())
@@ -32,16 +35,20 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 if (openDialog.ShowDialog() == DialogResult.OK)
                 {
                     matrixOriginal = ds.GetMatrix(openDialog.FileName);
-                    matrixProcessed = null;
+                    matrixProcessed = null; // сброс результата
 
                     ShowMatrix_AME(matrixOriginal, dataGridViewIn_AME);
 
+                    // очищаем таблицу результата
                     dataGridViewOut_AME.Rows.Clear();
                     dataGridViewOut_AME.Columns.Clear();
                 }
             }
         }
 
+        //------------------------------------------------
+        // КНОПКА 'Обработать' — создаёт копию и заменяет >5 во втором столбце
+        //------------------------------------------------
         private void buttonProcess_AME_Click(object sender, EventArgs e)
         {
             if (matrixOriginal == null)
@@ -50,22 +57,14 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 return;
             }
 
-            int rows = matrixOriginal.GetLength(0);
-            int cols = matrixOriginal.GetLength(1);
-            matrixProcessed = new int[rows, cols];
-
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < cols; j++)
-                    matrixProcessed[i, j] = matrixOriginal[i, j];
-
-                if (cols > 1 && matrixProcessed[i, 1] > 5)
-                    matrixProcessed[i, 1] = 222;
-            }
+            matrixProcessed = ds.ProcessMatrix(matrixOriginal);
 
             ShowMatrix_AME(matrixProcessed, dataGridViewOut_AME);
         }
 
+        //------------------------------------------------
+        // КНОПКА 'Сохранить результат'
+        //------------------------------------------------
         private void buttonSaveFile_AME_Click(object sender, EventArgs e)
         {
             if (matrixProcessed == null)
@@ -97,12 +96,18 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             }
         }
 
+        //------------------------------------------------
+        // КНОПКА 'О программе'
+        //------------------------------------------------
         private void buttonAbout_AME_Click(object sender, EventArgs e)
         {
             FormAbout about = new FormAbout();
             about.ShowDialog();
         }
 
+        //------------------------------------------------
+        // Метод вывода матрицы в DataGridView
+        //------------------------------------------------
         private void ShowMatrix_AME(int[,] matrix, DataGridView grid)
         {
             grid.Rows.Clear();
@@ -125,6 +130,9 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
+        //------------------------------------------------
+        // Адаптация при изменении размеров окна
+        //------------------------------------------------
         private void FormMain_Resize(object sender, EventArgs e)
         {
             int margin = 20;
@@ -147,10 +155,8 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             int leftOffset = (this.ClientSize.Width - totalButtonsWidth) / 2;
             int top = this.ClientSize.Height - buttonHeight - margin;
 
-            buttonOpenFile_AME.Top = top;
-            buttonProcess_AME.Top = top;
-            buttonSaveFile_AME.Top = top;
-            buttonAbout_AME.Top = top;
+            buttonOpenFile_AME.Top = buttonProcess_AME.Top =
+                buttonSaveFile_AME.Top = buttonAbout_AME.Top = top;
 
             buttonOpenFile_AME.Left = leftOffset;
             buttonProcess_AME.Left = buttonOpenFile_AME.Right + 10;

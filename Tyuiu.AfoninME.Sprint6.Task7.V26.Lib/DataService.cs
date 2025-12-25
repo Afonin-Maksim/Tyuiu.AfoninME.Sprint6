@@ -12,15 +12,17 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
         public int[,] GetMatrix(string path)
         {
             if (!File.Exists(path))
-                throw new FileNotFoundException("Файл не найден", path);
+                throw new FileNotFoundException("Файл не найден!", path);
 
             string[] lines = File.ReadAllLines(path)
                                  .Where(l => !string.IsNullOrWhiteSpace(l))
                                  .ToArray();
 
+            // Находим максимальное количество элементов в строках,
+            // чтобы выровнять "кривые" строки и избежать сдвигов
             int cols = lines.Max(l => l
                 .Split(new char[] { ' ', '\t', ';', ',' },
-                       StringSplitOptions.RemoveEmptyEntries).Length);
+                     StringSplitOptions.RemoveEmptyEntries).Length);
             int rows = lines.Length;
 
             int[,] matrix = new int[rows, cols];
@@ -38,30 +40,36 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
                         int.TryParse(parts[j], NumberStyles.Integer, CultureInfo.InvariantCulture, out val);
                     matrix[i, j] = val;
                 }
-            }         
-            int[,] result = new int[rows, cols];
-            Array.Copy(matrix, result, matrix.Length);
+            }
 
+            return matrix; // Возвращаем исходную, без изменений
+        }
+
+        // --- Старые имена для совместимости тестов ---
+        public int[,] LoadMatrix(string path) => GetMatrix(path);
+
+        public int[,] ProcessMatrix(int[,] source)
+        {
+            int rows = source.GetLength(0);
+            int cols = source.GetLength(1);
+            int[,] result = new int[rows, cols];
+
+            // копируем исходную матрицу
             for (int i = 0; i < rows; i++)
+                for (int j = 0; j < cols; j++)
+                    result[i, j] = source[i, j];
+
+            // обработка: замена во втором столбце (индекс 1)
+            if (cols > 1)
             {
-                if (cols > 1 && result[i, 1] > 5)
-                    result[i, 1] = 222;
+                for (int i = 0; i < rows; i++)
+                {
+                    if (result[i, 1] > 5)
+                        result[i, 1] = 222;
+                }
             }
 
             return result;
-        }
-
-        public int[,] LoadMatrix(string path) => GetMatrix(path);
-        public int[,] ProcessMatrix(int[,] src)
-        {
-            int r = src.GetLength(0);
-            int c = src.GetLength(1);
-            int[,] res = new int[r, c];
-            Array.Copy(src, res, src.Length);
-            for (int i = 0; i < r; i++)
-                if (c > 1 && res[i, 1] > 5)
-                    res[i, 1] = 222;
-            return res;
         }
     }
 }
