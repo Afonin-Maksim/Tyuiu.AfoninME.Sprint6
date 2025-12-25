@@ -1,63 +1,47 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using tyuiu.cources.programming.interfaces.Sprint6;
 
 namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
 {
-    public class DataService
+    public class DataService: ISprint6Task7V26
     {
         /// <summary>
-        /// Читает матрицу из CSV-файла и возвращает новую матрицу,
-        /// где во втором столбце заменены положительные значения > 5 на 222.
+        /// Считывает матрицу целых чисел из CSV-файла и возвращает исходные данные без изменений.
         /// </summary>
         public int[,] GetMatrix(string path)
         {
             if (!File.Exists(path))
-                throw new FileNotFoundException("Файл не найден", path);
+                throw new FileNotFoundException("Файл не найден!", path);
 
-            string[] lines = File.ReadAllLines(path);
+            string[] lines = File.ReadAllLines(path)
+                                 .Where(l => !string.IsNullOrWhiteSpace(l))
+                                 .ToArray();
 
-            // определяем размер матрицы
+            int cols = lines[0].Split(new char[] { ';', ',', ' ', '\t' },
+                                      StringSplitOptions.RemoveEmptyEntries).Length;
             int rows = lines.Length;
-            int cols = lines[0]
-                .Split(new char[] { ';', ' ', '\t', ',' },
-                       StringSplitOptions.RemoveEmptyEntries)
-                .Length;
 
             int[,] matrix = new int[rows, cols];
 
-            // === читаем исходные значения ===
             for (int i = 0; i < rows; i++)
             {
                 string[] parts = lines[i]
-                    .Split(new char[] { ';', ' ', '\t', ',' },
+                    .Split(new char[] { ';', ',', ' ', '\t' },
                            StringSplitOptions.RemoveEmptyEntries);
 
                 for (int j = 0; j < cols; j++)
                 {
-                    int val = 0;
+                    int value = 0;
                     if (j < parts.Length)
-                        int.TryParse(parts[j], NumberStyles.Integer,
-                            CultureInfo.InvariantCulture, out val);
-                    matrix[i, j] = val;
+                        int.TryParse(parts[j], NumberStyles.Integer, CultureInfo.InvariantCulture, out value);
+                    matrix[i, j] = value;
                 }
             }
 
-            // === создаём результат с корректировкой второго столбца ===
-            int[,] result = new int[rows, cols];
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < cols; j++)
-                {
-                    // если это второй столбец (j == 1) и число > 5, заменяем
-                    if (j == 1 && matrix[i, j] > 5)
-                        result[i, j] = 222;
-                    else
-                        result[i, j] = matrix[i, j];
-                }
-            }
-
-            return result;
+            return matrix;
         }
     }
 }
