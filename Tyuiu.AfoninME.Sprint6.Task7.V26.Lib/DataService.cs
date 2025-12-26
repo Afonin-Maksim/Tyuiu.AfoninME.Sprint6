@@ -21,7 +21,8 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
             int rows = lines.Length;
             int cols = lines[0]
                 .Split(new char[] { ' ', '\t', ';', ',' },
-                       StringSplitOptions.RemoveEmptyEntries).Length;
+                       StringSplitOptions.RemoveEmptyEntries)
+                .Length;
 
             int[,] matrix = new int[rows, cols];
 
@@ -38,14 +39,14 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
             return matrix;
         }
 
-        // Обработка, если мы работаем напрямую с файлом (для автопроверки)
+        // Обработка файла целиком (для автопроверки)
         public int[,] ProcessMatrix(string path)
         {
             int[,] matrix = GetMatrix(path);
-            return ProcessMatrix(matrix); // вызываем вторую версию
+            return ProcessMatrix(matrix);
         }
 
-        // Обработка матрицы (для формы и тестов)
+        // Обработка уже загруженной матрицы (для формы и тестов)
         public int[,] ProcessMatrix(int[,] source)
         {
             int rows = source.GetLength(0);
@@ -54,16 +55,17 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
             int[,] result = new int[rows, cols];
             Array.Copy(source, result, source.Length);
 
+            // корректный столбец: третий (index = 2)
             for (int i = 0; i < rows; i++)
             {
-                if (result[i, 1] > 5)
-                    result[i, 1] = 222;
+                if (cols > 2 && result[i, 2] > 5)
+                    result[i, 2] = 222;
             }
 
             return result;
         }
 
-        // Загрузка (для тестов и формы)
+        // Для тестов и формы
         public int[,] LoadMatrix(string path)
         {
             return GetMatrix(path);
