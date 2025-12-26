@@ -8,22 +8,22 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Test
     public class DataServiceTest
     {
         [TestMethod]
-        public void ProcessMatrix_ShouldReplacePositiveMoreThan5_InSecondColumnOnly()
+        public void TestMethod1()
         {
             DataService ds = new DataService();
-            string path = Path.GetTempFileName();
-            File.WriteAllLines(path, new[]
-            {
-                "2 10 3",
-                "-5 7 8",
-                "1 -3 4"
-            });
-            int[,] matrix = ds.LoadMatrix(path);
-            int[,] result = ds.ProcessMatrix(matrix);      
-            Assert.AreEqual(222, result[0, 1]);
-            Assert.AreEqual(222, result[1, 1]);    
-            Assert.AreEqual(-3, result[2, 1]);                 
-            Assert.AreEqual(10, matrix[0, 1]);
+            string path = @"C:\DataSprint6\InPutDataFileTask7V26.csv";
+            var res = ds.GetMatrix(path);
+            int[,] wait = new int[10, 10] { {19, -9, 16, 16, -1, 11, 14, -8, 6, -2 },
+                                             { -13, -1, 10, 18, 2, -16, -17, 12, -17, 20 },
+                                             {  -10, 19, 5, -1, 0, 20, -19, 2, 9, -8},
+                                             { -17, 7, 11, -14, -14, -10, 8, -12, -17, 2},
+                                             { -18, -1, -19, 19, -1, 20, 14, 9, 17, 11},
+                                             { 2, 17, -14, 2, 8, -4, 11, -20, -18, -20},
+                                             { -13, -13, -13, 18, -7, -15, 13, 2, 14, 3},
+                                             { 4, 9, -12, -1, -7, 7, 10, 3, 19, -11},
+                                             { -1, 12, -9, -17, 16, -6, 1, -8, -17, 20},
+                                             { 10, 1, 2, 1, 3, -19, 4, 12, -7, -17}};
+            CollectionAssert.AreEqual(wait, res);
         }
     }
 }

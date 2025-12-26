@@ -10,56 +10,33 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26.Lib
         // Чтение матрицы из .csv
         public int[,] GetMatrix(string path)
         {
-            if (!File.Exists(path))
-                throw new FileNotFoundException("Файл не найден.", path);
+            string fileData = File.ReadAllText(path);
+            fileData = fileData.Replace("\n", "\r");
+            string[] lines = fileData.Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
-            string[] lines = File.ReadAllLines(path);
             int rows = lines.Length;
-            string[] firstParts = lines[0].Split(new char[] { ';', ',' },
-                                                 StringSplitOptions.RemoveEmptyEntries);
-            int cols = firstParts.Length;
-            int[,] matrix = new int[rows, cols];
+            int cols = lines[0].Split(';').Length;
 
-            for (int i = 0; i < rows; i++)
+            int[,] arrayValues = new int[rows, cols];
+
+            for (int r = 0; r < rows; r++)
             {
-                string[] parts = lines[i].Split(new char[] { ';', ',' },
-                                                StringSplitOptions.RemoveEmptyEntries);
+                string[] line_r = lines[r].Split(';');
 
-                for (int j = 0; j < cols; j++)
+                for (int c = 0; c < cols; c++)
                 {
-                    // если неверный формат — ставим 0
-                    int.TryParse(parts[j].Trim(), NumberStyles.Integer,
-                                 CultureInfo.InvariantCulture, out matrix[i, j]);
+                    arrayValues[r, c] = Convert.ToInt32(line_r[c]);
+
+                    if (c == 1 && arrayValues[r, c] > 5)
+                    {
+                        arrayValues[r, c] = 222;
+                    }
                 }
             }
-            return matrix;
+
+            return arrayValues;
+
+
         }
-
-        // Для автопроверки
-        public int[,] ProcessMatrix(string path)
-        {
-            int[,] m = GetMatrix(path);
-            return ProcessMatrix(m);
-        }
-
-        // Для формы и тестов
-        public int[,] ProcessMatrix(int[,] source)
-        {
-            int rows = source.GetLength(0);
-            int cols = source.GetLength(1);
-            int[,] res = new int[rows, cols];
-
-            Array.Copy(source, res, source.Length);
-
-            // менять именно второй столбец (индекс 1)
-            for (int i = 0; i < rows; i++)
-            {
-                if (cols > 1 && res[i, 1] > 5)
-                    res[i, 1] = 222;
-            }
-            return res;
-        }
-
-        public int[,] LoadMatrix(string path) => GetMatrix(path);
     }
 }
