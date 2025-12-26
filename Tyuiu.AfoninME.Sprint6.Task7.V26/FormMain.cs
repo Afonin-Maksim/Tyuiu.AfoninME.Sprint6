@@ -10,19 +10,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
         private readonly DataService ds = new DataService();
         private int[,]? matrixOriginal;
         private int[,]? matrixProcessed;
-
-        public FormMain()
-        {
-            InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Спринт #6 | Task 7 | Вариант 26 | Афонин М.Е.";
-            textBoxCondition_AME.Text =
-                "УСЛОВИЕ ЗАДАНИЯ:\r\n" +
-                "Дан файл InPutFileTask7V26.csv, в котором хранится матрица целых чисел.\r\n" +
-                "Во втором столбце заменить положительные значения больше 5 на 222.\r\n" +
-                "Исходная матрица отображается слева, обработанный результат — справа.\r\n" +
-                "Результат сохранить в файл OutPutFileTask7V26.csv.";
-        }
         private void buttonOpenFile_AME_Click(object? sender, EventArgs e)
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
@@ -30,33 +17,52 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 dlg.Filter = "CSV файлы|*.csv|Все файлы|*.*";
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    matrixOriginal = ds.GetMatrix(dlg.FileName);
-                    matrixProcessed = null;
+                    string path = dlg.FileName;
+                    string[] lines = File.ReadAllLines(path);
+                    int rows = lines.Length;
+                    int cols = lines[0].Split(';').Length;
+                    matrixOriginal = new int[rows, cols];
+                    for (int r = 0; r < rows; r++)
+                    {
+                        string[] parts = lines[r].Split(';');
+                        for (int c = 0; c < cols; c++)
+                            matrixOriginal[r, c] = Convert.ToInt32(parts[c]);
+                    }
                     ShowMatrix_AME(matrixOriginal, dataGridViewIn_AME);
                     dataGridViewOut_AME.Rows.Clear();
                     dataGridViewOut_AME.Columns.Clear();
-                    this.Text = $"Спринт #6 | Task 7 | Вариант 26 | Афонин М.Е. | Файл: {Path.GetFileName(dlg.FileName)}";
+                    matrixProcessed = null;
+                    buttonProcess_AME.Tag = path;
+                    this.Text = $"Спринт #6 | Task 7 | Вариант 26 | Афонин М.Е. | Файл: {Path.GetFileName(path)}";
                 }
             }
         }
         private void buttonProcess_AME_Click(object? sender, EventArgs e)
         {
-            if (matrixOriginal == null)
+            if (buttonProcess_AME.Tag is null)
             {
-                MessageBox.Show("Сначала загрузите файл!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Сначала загрузите файл!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            matrixProcessed = ds.ProcessMatrix(matrixOriginal);
+            string path = buttonProcess_AME.Tag.ToString() ?? string.Empty;
+            if (string.IsNullOrEmpty(path))
+            {
+                MessageBox.Show("Файл не найден.", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            matrixProcessed = ds.GetMatrix(path);
             ShowMatrix_AME(matrixProcessed, dataGridViewOut_AME);
         }
         private void buttonSaveFile_AME_Click(object? sender, EventArgs e)
         {
             if (matrixProcessed == null)
             {
-                MessageBox.Show("Нет данных для сохранения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Нет данных для сохранения!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
                 dlg.Filter = "CSV файлы|*.csv|Все файлы|*.*";
@@ -65,7 +71,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                     int rows = matrixProcessed.GetLength(0);
                     int cols = matrixProcessed.GetLength(1);
                     string[] lines = new string[rows];
-
                     for (int i = 0; i < rows; i++)
                     {
                         string[] vals = new string[cols];
@@ -73,7 +78,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                             vals[j] = matrixProcessed[i, j].ToString();
                         lines[i] = string.Join(";", vals);
                     }
-
                     File.WriteAllLines(dlg.FileName, lines);
                     MessageBox.Show($"Результат успешно сохранён:\n{dlg.FileName}",
                         "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -91,10 +95,8 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
             grid.Columns.Clear();
             int rows = matrix.GetLength(0);
             int cols = matrix.GetLength(1);
-
             for (int c = 0; c < cols; c++)
                 grid.Columns.Add($"col{c}_AME", $"Столбец {c + 1}");
-
             for (int r = 0; r < rows; r++)
             {
                 string[] rowVals = new string[cols];
@@ -102,7 +104,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                     rowVals[c] = matrix[r, c].ToString();
                 grid.Rows.Add(rowVals);
             }
-
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         private void FormMain_Resize(object? sender, EventArgs e)

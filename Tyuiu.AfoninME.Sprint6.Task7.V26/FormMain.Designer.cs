@@ -14,95 +14,118 @@
         #region Windows Form Designer generated code
         private void InitializeComponent()
         {
-            this.textBoxCondition_AME = new System.Windows.Forms.TextBox();
-            this.dataGridViewIn_AME = new System.Windows.Forms.DataGridView();
-            this.dataGridViewOut_AME = new System.Windows.Forms.DataGridView();
-            this.buttonOpenFile_AME = new System.Windows.Forms.Button();
-            this.buttonProcess_AME = new System.Windows.Forms.Button();
-            this.buttonSaveFile_AME = new System.Windows.Forms.Button();
-            this.buttonAbout_AME = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIn_AME)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOut_AME)).BeginInit();
-            this.SuspendLayout();
-            
-            this.textBoxCondition_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.textBoxCondition_AME.Location = new System.Drawing.Point(12, 12);
-            this.textBoxCondition_AME.Multiline = true;
-            this.textBoxCondition_AME.Name = "textBoxCondition_AME";
-            this.textBoxCondition_AME.ReadOnly = true;
-            this.textBoxCondition_AME.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxCondition_AME.Size = new System.Drawing.Size(820, 80);
-            this.textBoxCondition_AME.TabIndex = 10;
-            
-            this.dataGridViewIn_AME.AllowUserToAddRows = false;
-            this.dataGridViewIn_AME.AllowUserToDeleteRows = false;
-            this.dataGridViewIn_AME.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewIn_AME.Location = new System.Drawing.Point(12, 110);
-            this.dataGridViewIn_AME.Name = "dataGridViewIn_AME";
-            this.dataGridViewIn_AME.ReadOnly = true;
-            this.dataGridViewIn_AME.Size = new System.Drawing.Size(380, 200);
-            
-            this.dataGridViewOut_AME.AllowUserToAddRows = false;
-            this.dataGridViewOut_AME.AllowUserToDeleteRows = false;
-            this.dataGridViewOut_AME.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOut_AME.Location = new System.Drawing.Point(412, 110);
-            this.dataGridViewOut_AME.Name = "dataGridViewOut_AME";
-            this.dataGridViewOut_AME.ReadOnly = true;
-            this.dataGridViewOut_AME.Size = new System.Drawing.Size(380, 200);
-            
-            this.buttonOpenFile_AME.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.buttonOpenFile_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.buttonOpenFile_AME.Location = new System.Drawing.Point(12, 330);
-            this.buttonOpenFile_AME.Name = "buttonOpenFile_AME";
-            this.buttonOpenFile_AME.Size = new System.Drawing.Size(160, 40);
-            this.buttonOpenFile_AME.Text = "Открыть файл";
-            this.buttonOpenFile_AME.UseVisualStyleBackColor = false;
-            this.buttonOpenFile_AME.Click += new System.EventHandler(this.buttonOpenFile_AME_Click);
-            
-            this.buttonProcess_AME.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.buttonProcess_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.buttonProcess_AME.Location = new System.Drawing.Point(200, 330);
-            this.buttonProcess_AME.Name = "buttonProcess_AME";
-            this.buttonProcess_AME.Size = new System.Drawing.Size(160, 40);
-            this.buttonProcess_AME.Text = "Обработать";
-            this.buttonProcess_AME.UseVisualStyleBackColor = false;
-            this.buttonProcess_AME.Click += new System.EventHandler(this.buttonProcess_AME_Click);
-            
-            this.buttonSaveFile_AME.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.buttonSaveFile_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.buttonSaveFile_AME.Location = new System.Drawing.Point(390, 330);
-            this.buttonSaveFile_AME.Name = "buttonSaveFile_AME";
-            this.buttonSaveFile_AME.Size = new System.Drawing.Size(160, 40);
-            this.buttonSaveFile_AME.Text = "Сохранить";
-            this.buttonSaveFile_AME.UseVisualStyleBackColor = false;
-            this.buttonSaveFile_AME.Click += new System.EventHandler(this.buttonSaveFile_AME_Click);
-            
-            this.buttonAbout_AME.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.buttonAbout_AME.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.buttonAbout_AME.Location = new System.Drawing.Point(580, 330);
-            this.buttonAbout_AME.Name = "buttonAbout_AME";
-            this.buttonAbout_AME.Size = new System.Drawing.Size(160, 40);
-            this.buttonAbout_AME.Text = "О программе";
-            this.buttonAbout_AME.UseVisualStyleBackColor = false;
-            this.buttonAbout_AME.Click += new System.EventHandler(this.buttonAbout_AME_Click);
-            
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.ClientSize = new System.Drawing.Size(850, 400);
-            this.Controls.Add(this.textBoxCondition_AME);
-            this.Controls.Add(this.buttonAbout_AME);
-            this.Controls.Add(this.buttonSaveFile_AME);
-            this.Controls.Add(this.buttonProcess_AME);
-            this.Controls.Add(this.buttonOpenFile_AME);
-            this.Controls.Add(this.dataGridViewOut_AME);
-            this.Controls.Add(this.dataGridViewIn_AME);
-            this.Name = "FormMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Спринт #6 | Task 7 | Вариант 26 | Афонин М.Е.";
-            this.Resize += new System.EventHandler(this.FormMain_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIn_AME)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOut_AME)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            textBoxCondition_AME = new TextBox();
+            dataGridViewIn_AME = new DataGridView();
+            dataGridViewOut_AME = new DataGridView();
+            buttonOpenFile_AME = new Button();
+            buttonProcess_AME = new Button();
+            buttonSaveFile_AME = new Button();
+            buttonAbout_AME = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewIn_AME).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewOut_AME).BeginInit();
+            SuspendLayout();
+            // 
+            // textBoxCondition_AME
+            // 
+            textBoxCondition_AME.Font = new Font("Microsoft Sans Serif", 10F);
+            textBoxCondition_AME.Location = new Point(12, 12);
+            textBoxCondition_AME.Multiline = true;
+            textBoxCondition_AME.Name = "textBoxCondition_AME";
+            textBoxCondition_AME.ReadOnly = true;
+            textBoxCondition_AME.ScrollBars = ScrollBars.Vertical;
+            textBoxCondition_AME.Size = new Size(820, 80);
+            textBoxCondition_AME.TabIndex = 10;
+            textBoxCondition_AME.Text = resources.GetString("textBoxCondition_AME.Text");
+            // 
+            // dataGridViewIn_AME
+            // 
+            dataGridViewIn_AME.AllowUserToAddRows = false;
+            dataGridViewIn_AME.AllowUserToDeleteRows = false;
+            dataGridViewIn_AME.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewIn_AME.Location = new Point(12, 110);
+            dataGridViewIn_AME.Name = "dataGridViewIn_AME";
+            dataGridViewIn_AME.ReadOnly = true;
+            dataGridViewIn_AME.Size = new Size(380, 200);
+            dataGridViewIn_AME.TabIndex = 16;
+            // 
+            // dataGridViewOut_AME
+            // 
+            dataGridViewOut_AME.AllowUserToAddRows = false;
+            dataGridViewOut_AME.AllowUserToDeleteRows = false;
+            dataGridViewOut_AME.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewOut_AME.Location = new Point(412, 110);
+            dataGridViewOut_AME.Name = "dataGridViewOut_AME";
+            dataGridViewOut_AME.ReadOnly = true;
+            dataGridViewOut_AME.Size = new Size(380, 200);
+            dataGridViewOut_AME.TabIndex = 15;
+            // 
+            // buttonOpenFile_AME
+            // 
+            buttonOpenFile_AME.BackColor = Color.LightSteelBlue;
+            buttonOpenFile_AME.Font = new Font("Microsoft Sans Serif", 10F);
+            buttonOpenFile_AME.Location = new Point(12, 330);
+            buttonOpenFile_AME.Name = "buttonOpenFile_AME";
+            buttonOpenFile_AME.Size = new Size(160, 40);
+            buttonOpenFile_AME.TabIndex = 14;
+            buttonOpenFile_AME.Text = "Открыть файл";
+            buttonOpenFile_AME.UseVisualStyleBackColor = false;
+            buttonOpenFile_AME.Click += buttonOpenFile_AME_Click;
+            // 
+            // buttonProcess_AME
+            // 
+            buttonProcess_AME.BackColor = Color.LightSteelBlue;
+            buttonProcess_AME.Font = new Font("Microsoft Sans Serif", 10F);
+            buttonProcess_AME.Location = new Point(200, 330);
+            buttonProcess_AME.Name = "buttonProcess_AME";
+            buttonProcess_AME.Size = new Size(160, 40);
+            buttonProcess_AME.TabIndex = 13;
+            buttonProcess_AME.Text = "Обработать";
+            buttonProcess_AME.UseVisualStyleBackColor = false;
+            buttonProcess_AME.Click += buttonProcess_AME_Click;
+            // 
+            // buttonSaveFile_AME
+            // 
+            buttonSaveFile_AME.BackColor = Color.LightSteelBlue;
+            buttonSaveFile_AME.Font = new Font("Microsoft Sans Serif", 10F);
+            buttonSaveFile_AME.Location = new Point(390, 330);
+            buttonSaveFile_AME.Name = "buttonSaveFile_AME";
+            buttonSaveFile_AME.Size = new Size(160, 40);
+            buttonSaveFile_AME.TabIndex = 12;
+            buttonSaveFile_AME.Text = "Сохранить";
+            buttonSaveFile_AME.UseVisualStyleBackColor = false;
+            buttonSaveFile_AME.Click += buttonSaveFile_AME_Click;
+            // 
+            // buttonAbout_AME
+            // 
+            buttonAbout_AME.BackColor = Color.LightSteelBlue;
+            buttonAbout_AME.Font = new Font("Microsoft Sans Serif", 10F);
+            buttonAbout_AME.Location = new Point(580, 330);
+            buttonAbout_AME.Name = "buttonAbout_AME";
+            buttonAbout_AME.Size = new Size(160, 40);
+            buttonAbout_AME.TabIndex = 11;
+            buttonAbout_AME.Text = "О программе";
+            buttonAbout_AME.UseVisualStyleBackColor = false;
+            buttonAbout_AME.Click += buttonAbout_AME_Click;
+            // 
+            // FormMain
+            // 
+            ClientSize = new Size(850, 400);
+            Controls.Add(textBoxCondition_AME);
+            Controls.Add(buttonAbout_AME);
+            Controls.Add(buttonSaveFile_AME);
+            Controls.Add(buttonProcess_AME);
+            Controls.Add(buttonOpenFile_AME);
+            Controls.Add(dataGridViewOut_AME);
+            Controls.Add(dataGridViewIn_AME);
+            Name = "FormMain";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Спринт #6 | Task 7 | Вариант 26 | Афонин М.Е.";
+            Resize += FormMain_Resize;
+            ((System.ComponentModel.ISupportInitialize)dataGridViewIn_AME).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewOut_AME).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
         #endregion
 
