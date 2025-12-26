@@ -26,37 +26,27 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 dlg.Filter = "CSV файлы|*.csv|Все файлы|*.*";
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    string path = dlg.FileName;
-
-                    // 1. Читаем файл как есть — без обработки, для вывода слева
+                    string path = dlg.FileName;                  
                     string[] lines = File.ReadAllLines(path);
                     int rows = lines.Length;
                     int cols = lines[0].Split(';').Length;
                     matrixOriginal = new int[rows, cols];
-
                     for (int r = 0; r < rows; r++)
                     {
                         string[] parts = lines[r].Split(';');
                         for (int c = 0; c < cols; c++)
                             matrixOriginal[r, c] = Convert.ToInt32(parts[c]);
                     }
-
-                    // 2. Показываем оригинальную матрицу слева
                     ShowMatrix_AME(matrixOriginal, dataGridViewIn_AME);
-
-                    // 3. Правое поле очищаем
                     dataGridViewOut_AME.Rows.Clear();
                     dataGridViewOut_AME.Columns.Clear();
                     matrixProcessed = null;
-
-                    // 4. Сохраняем путь к открытому файлу
                     buttonProcess_AME.Tag = path;
 
                     this.Text = $"Спринт #6 | Task 7 | Вариант 26 | Афонин М.Е. | Файл: {Path.GetFileName(path)}";
                 }
             }
         }
-
         private void buttonProcess_AME_Click(object? sender, EventArgs e)
         {
             if (buttonProcess_AME.Tag == null)
@@ -65,13 +55,10 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // 5. Вызываем библиотеку для обработки и отображаем результат справа
             string path = buttonProcess_AME.Tag.ToString();
             matrixProcessed = ds.GetMatrix(path);
             ShowMatrix_AME(matrixProcessed, dataGridViewOut_AME);
         }
-
         private void buttonSaveFile_AME_Click(object? sender, EventArgs e)
         {
             if (matrixProcessed == null)
@@ -80,7 +67,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
                 dlg.Filter = "CSV файлы|*.csv|Все файлы|*.*";
@@ -104,7 +90,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
                 }
             }
         }
-
         private void buttonAbout_AME_Click(object? sender, EventArgs e)
         {
             FormAbout about = new FormAbout();
@@ -131,7 +116,6 @@ namespace Tyuiu.AfoninME.Sprint6.Task7.V26
 
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-
         private void FormMain_Resize(object? sender, EventArgs e)
         {
             int margin = 20;
