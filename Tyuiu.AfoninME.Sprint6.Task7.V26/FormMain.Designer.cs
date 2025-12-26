@@ -29,12 +29,12 @@
             // textBoxCondition_AME
             // 
             textBoxCondition_AME.Font = new Font("Microsoft Sans Serif", 10F);
-            textBoxCondition_AME.Location = new Point(12, 12);
+            textBoxCondition_AME.Location = new Point(12, 2);
             textBoxCondition_AME.Multiline = true;
             textBoxCondition_AME.Name = "textBoxCondition_AME";
             textBoxCondition_AME.ReadOnly = true;
             textBoxCondition_AME.ScrollBars = ScrollBars.Vertical;
-            textBoxCondition_AME.Size = new Size(820, 80);
+            textBoxCondition_AME.Size = new Size(820, 102);
             textBoxCondition_AME.TabIndex = 10;
             textBoxCondition_AME.Text = resources.GetString("textBoxCondition_AME.Text");
             // 
@@ -46,17 +46,20 @@
             dataGridViewIn_AME.Location = new Point(12, 110);
             dataGridViewIn_AME.Name = "dataGridViewIn_AME";
             dataGridViewIn_AME.ReadOnly = true;
+            dataGridViewIn_AME.RowHeadersVisible = false;
             dataGridViewIn_AME.Size = new Size(380, 200);
             dataGridViewIn_AME.TabIndex = 16;
+            dataGridViewIn_AME.CellContentClick += dataGridViewIn_AME_CellContentClick;
             // 
             // dataGridViewOut_AME
             // 
             dataGridViewOut_AME.AllowUserToAddRows = false;
             dataGridViewOut_AME.AllowUserToDeleteRows = false;
             dataGridViewOut_AME.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewOut_AME.Location = new Point(412, 110);
+            dataGridViewOut_AME.Location = new Point(452, 110);
             dataGridViewOut_AME.Name = "dataGridViewOut_AME";
             dataGridViewOut_AME.ReadOnly = true;
+            dataGridViewOut_AME.RowHeadersVisible = false;
             dataGridViewOut_AME.Size = new Size(380, 200);
             dataGridViewOut_AME.TabIndex = 15;
             // 
@@ -64,11 +67,11 @@
             // 
             buttonOpenFile_AME.BackColor = Color.LightSteelBlue;
             buttonOpenFile_AME.Font = new Font("Microsoft Sans Serif", 10F);
-            buttonOpenFile_AME.Location = new Point(12, 330);
+            buttonOpenFile_AME.Image = (Image)resources.GetObject("buttonOpenFile_AME.Image");
+            buttonOpenFile_AME.Location = new Point(88, 330);
             buttonOpenFile_AME.Name = "buttonOpenFile_AME";
             buttonOpenFile_AME.Size = new Size(160, 40);
             buttonOpenFile_AME.TabIndex = 14;
-            buttonOpenFile_AME.Text = "Открыть файл";
             buttonOpenFile_AME.UseVisualStyleBackColor = false;
             buttonOpenFile_AME.Click += buttonOpenFile_AME_Click;
             // 
@@ -76,11 +79,11 @@
             // 
             buttonProcess_AME.BackColor = Color.LightSteelBlue;
             buttonProcess_AME.Font = new Font("Microsoft Sans Serif", 10F);
-            buttonProcess_AME.Location = new Point(200, 330);
+            buttonProcess_AME.Image = (Image)resources.GetObject("buttonProcess_AME.Image");
+            buttonProcess_AME.Location = new Point(254, 330);
             buttonProcess_AME.Name = "buttonProcess_AME";
             buttonProcess_AME.Size = new Size(160, 40);
             buttonProcess_AME.TabIndex = 13;
-            buttonProcess_AME.Text = "Обработать";
             buttonProcess_AME.UseVisualStyleBackColor = false;
             buttonProcess_AME.Click += buttonProcess_AME_Click;
             // 
@@ -88,11 +91,11 @@
             // 
             buttonSaveFile_AME.BackColor = Color.LightSteelBlue;
             buttonSaveFile_AME.Font = new Font("Microsoft Sans Serif", 10F);
-            buttonSaveFile_AME.Location = new Point(390, 330);
+            buttonSaveFile_AME.Image = (Image)resources.GetObject("buttonSaveFile_AME.Image");
+            buttonSaveFile_AME.Location = new Point(420, 330);
             buttonSaveFile_AME.Name = "buttonSaveFile_AME";
             buttonSaveFile_AME.Size = new Size(160, 40);
             buttonSaveFile_AME.TabIndex = 12;
-            buttonSaveFile_AME.Text = "Сохранить";
             buttonSaveFile_AME.UseVisualStyleBackColor = false;
             buttonSaveFile_AME.Click += buttonSaveFile_AME_Click;
             // 
@@ -100,11 +103,11 @@
             // 
             buttonAbout_AME.BackColor = Color.LightSteelBlue;
             buttonAbout_AME.Font = new Font("Microsoft Sans Serif", 10F);
-            buttonAbout_AME.Location = new Point(580, 330);
+            buttonAbout_AME.Image = (Image)resources.GetObject("buttonAbout_AME.Image");
+            buttonAbout_AME.Location = new Point(586, 330);
             buttonAbout_AME.Name = "buttonAbout_AME";
             buttonAbout_AME.Size = new Size(160, 40);
             buttonAbout_AME.TabIndex = 11;
-            buttonAbout_AME.Text = "О программе";
             buttonAbout_AME.UseVisualStyleBackColor = false;
             buttonAbout_AME.Click += buttonAbout_AME_Click;
             // 
